@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Client-side password hashing and local authentication demo">
+  <title>SecureAuth | Password Hashing Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="auth-card">
+      <div class="brand">
+        <div class="brand-icon">🔐</div>
+        <div>
+          <p class="eyebrow">PASSWORD SECURITY</p>
+          <h1>SecureAuth</h1>
+        </div>
+      </div>
+
+      <p class="subtitle">Register and log in with passwords hashed in your browser. Only the salted hash is stored in localStorage.</p>
+
+      <div class="tabs" role="tablist" aria-label="Authentication">
+        <button class="tab active" id="registerTab" type="button" role="tab" aria-selected="true">Register</button>
+        <button class="tab" id="loginTab" type="button" role="tab" aria-selected="false">Login</button>
+      </div>
+
+      <div id="message" class="message hidden" role="alert"></div>
+
+      <form id="registerForm" class="auth-form">
+        <label for="registerUsername">Username</label>
+        <input id="registerUsername" type="text" autocomplete="username" minlength="3" maxlength="40" placeholder="Enter username" required>
+
+        <label for="registerPassword">Password</label>
+        <div class="password-row">
+          <input id="registerPassword" type="password" autocomplete="new-password" minlength="8" placeholder="Minimum 8 characters" required>
+          <button class="show-btn" type="button" data-target="registerPassword">Show</button>
+        </div>
+
+        <label for="confirmPassword">Confirm password</label>
+        <div class="password-row">
+          <input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" placeholder="Repeat password" required>
+          <button class="show-btn" type="button" data-target="confirmPassword">Show</button>
+        </div>
+
+        <button class="primary-btn" type="submit">Create account</button>
+      </form>
+
+      <form id="loginForm" class="auth-form hidden">
+        <label for="loginUsername">Username</label>
+        <input id="loginUsername" type="text" autocomplete="username" placeholder="Enter username" required>
+
+        <label for="loginPassword">Password</label>
+        <div class="password-row">
+          <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter password" required>
+          <button class="show-btn" type="button" data-target="loginPassword">Show</button>
+        </div>
+
+        <button class="primary-btn" type="submit">Login</button>
+      </form>
+
+      <section id="accountPanel" class="account-panel hidden">
+        <div class="account-avatar">✓</div>
+        <div>
+          <p class="eyebrow">AUTHENTICATED</p>
+          <h2>Welcome, <span id="accountName"></span></h2>
+          <p>Your password was verified against the stored salted hash.</p>
+        </div>
+        <button id="logoutBtn" class="secondary-btn" type="button">Log out</button>
+      </section>
+
+      <section class="security-box">
+        <h2>How it works</h2>
+        <ul>
+          <li>A random 16-byte salt is generated for every account.</li>
+          <li>The password is processed with PBKDF2-HMAC-SHA-256 using 210,000 iterations.</li>
+          <li>Only the username, salt, hash, algorithm and iteration count are stored in localStorage.</li>
+          <li>The original password is never stored in localStorage.</li>
+        </ul>
+      </section>
+
+      <footer>
+        Educational client-side authentication project • GitHub Pages ready
+      </footer>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
